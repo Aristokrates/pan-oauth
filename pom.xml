@@ -10,13 +10,13 @@
 
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		
+
 		<java.version>1.5</java.version>
 		<struts.version>1.2.7</struts.version>
-		
+
 		<slf4j.version>1.5.2</slf4j.version>
 		<log4j.version>1.2.15</log4j.version>
-		
+
 		<junit.version>4.8.2</junit.version>
 	</properties>
 
@@ -36,6 +36,21 @@
 	<dependencies>
 
 		<!-- Struts -->
+
+		<!-- Third party service integration -->
+		<dependency>
+			<groupId>oauth.signpost</groupId>
+			<artifactId>signpost-core</artifactId>
+			<version>1.2.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>2.2.3</version>
+		</dependency>
 
 		<!-- Logging -->
 
@@ -83,4 +98,26 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>twitter4j.org</id>
+			<name>twitter4j.org Repository</name>
+			<url>http://twitter4j.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>jraf.org</id>
+			<name>jTwitter repo</name>
+			<url>http://www.jraf.org/static/maven/2/</url>
+		</repository>
+
+	</repositories>
+
 </project>
