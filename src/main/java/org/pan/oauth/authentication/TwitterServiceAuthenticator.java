@@ -1,6 +1,7 @@
 package org.pan.oauth.authentication;
 
 import org.pan.oauth.exception.CustomOAuthException;
+import org.pan.oauth.model.TwitterWrapperModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import twitter4j.auth.RequestToken;
  * @author Pance.Isajeski
  *
  */
+//TODO (pai) investigate & consider non-singleton usage
 public class TwitterServiceAuthenticator {
 
 	private static final Logger log = LoggerFactory.getLogger(TwitterServiceAuthenticator.class);
@@ -41,11 +43,12 @@ public class TwitterServiceAuthenticator {
 	 * @param device
 	 * @return
 	 */
-	public String getTwitterURL(String twitterCallbackSecret, String username) {
+	public TwitterWrapperModel getTwitterURL() {
 
 		//Get the Twitter redirect URL and set unauthorized request token and token secret to the customer
 		try {
-			return provider.retrieveRequestToken(consumer, twitterCallbackUrl);
+			String url = provider.retrieveRequestToken(consumer, twitterCallbackUrl);
+			return new TwitterWrapperModel(url, buildRequestToken());
 
 		} catch (OAuthException exception) {
 			throw new CustomOAuthException(exception);
@@ -58,11 +61,9 @@ public class TwitterServiceAuthenticator {
 	 * @param oauthVerifier The verification code.
 	 * @return
 	 */
-	public AccessToken getAccessToken(String token, String oauthVerifier) {
+	public AccessToken getAccessToken(RequestToken token, String oauthVerifier) {
 
-		String tokenSecret = getRequestToken().getTokenSecret();
-
-		consumer.setTokenWithSecret(token, tokenSecret);
+		consumer.setTokenWithSecret(token.getToken(), token.getTokenSecret());
 		try {
 			provider.retrieveAccessToken(consumer, oauthVerifier);
 			return new AccessToken(consumer.getToken(), consumer.getTokenSecret());
@@ -72,8 +73,7 @@ public class TwitterServiceAuthenticator {
 		}
 	}
 
-	private RequestToken getRequestToken() {
+	private RequestToken buildRequestToken() {
 		return new RequestToken(consumer.getToken(), consumer.getTokenSecret());
 	}
-
 }

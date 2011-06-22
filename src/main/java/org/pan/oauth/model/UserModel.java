@@ -10,14 +10,14 @@ public class UserModel {
 	
 	private String name;
 	
-	private String surname;
+	private String username;
 	
 	private String email;
 
-	public UserModel(String name, String surname, String email) {
+	public UserModel(String name, String username, String email) {
 		super();
 		this.name = name;
-		this.surname = surname;
+		this.username = username;
 		this.email = email;
 	}
 
@@ -29,12 +29,12 @@ public class UserModel {
 		this.name = name;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setUsername(String surname) {
+		this.username = surname;
 	}
 
 	public String getEmail() {

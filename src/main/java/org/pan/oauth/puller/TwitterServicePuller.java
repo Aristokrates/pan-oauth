@@ -47,12 +47,11 @@ public class TwitterServicePuller {
 			throw new CustomOAuthException(e);
 		}
 
-		return new UserModel(user.getName(), user.getScreenName(), String.valueOf(user.getId()));
+		//(pai) FIXME Twitter does not allow email to be retrieved
+		return new UserModel(user.getName(), user.getScreenName(), null);
 	}
 	
-	private Twitter getClient(
-			final String accessToken,
-			final String accessTokenSecret) {
+	private Twitter getClient(final String accessToken, final String accessTokenSecret) {
 
 		Configuration config = new ConfigurationBuilder().setOAuthConsumerKey(consumerKey).setOAuthConsumerSecret(consumerSecret).build();		
 		return new TwitterFactory(config).getInstance(new AccessToken(accessToken, accessTokenSecret));
