@@ -22,27 +22,30 @@ import org.pan.oauth.exception.CustomOpenIdAuthException;
 import org.pan.oauth.model.GoogleWrapperModel;
 import org.pan.oauth.model.UserModel;
 
+/**
+ * Google service authentication using OpenId protocol
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public class GoogleServiceOpenId {
 	
 	private ConsumerManager manager;
 		
 	public GoogleServiceOpenId() {
+		
 		super();
 		
         try {
 			manager = new ConsumerManager();
 		} catch (ConsumerException e) {
-			throw new RuntimeException();
+			throw new CustomOpenIdAuthException(e);
 		}
 	}
 
-	// --- placing the authentication request ---
     @SuppressWarnings("unchecked")
-	public GoogleWrapperModel authRequest()
-            throws IOException, ServletException
-    {
-        try
-        {       
+	public GoogleWrapperModel authRequest() throws IOException, ServletException {
+        try {       
             // --- Forward proxy setup (only if needed) ---
 //             ProxyProperties proxyProps = new ProxyProperties();
 //             proxyProps.setProxyHostName("10.0.1.21");
@@ -52,31 +55,30 @@ public class GoogleServiceOpenId {
 //             HttpClientFactory.setProxyProperties(proxyProps);
 
             // perform discovery on the user-supplied identifier
-            List<DiscoveryInformation> discoveries = manager.discover(PropertyPlaceHolder.INSTANCE.getOpenIdEndpoint());
+            List<DiscoveryInformation> discoveries = manager.discover(
+            		PropertyPlaceHolder.INSTANCE.getOpenIdEndpoint());
 
             // attempt to associate with the OpenID provider
             // and retrieve one service endpoint for authentication
             DiscoveryInformation discovered = manager.associate(discoveries);
 
             // obtain a AuthRequest message to be sent to the OpenID provider
-            AuthRequest authReq = manager.authenticate(discovered, PropertyPlaceHolder.INSTANCE.getOpenIdCallbackUrl());
+            AuthRequest authReq = manager.authenticate(
+            		discovered, PropertyPlaceHolder.INSTANCE.getOpenIdCallbackUrl());
 
-            // Attribute Exchange example: fetching the 'email' attribute
+            // Attribute Exchange
             FetchRequest fetch = FetchRequest.createFetchRequest();
             fetch.addAttribute("email",
-                    // attribute alias
-                    "http://schema.openid.net/contact/email",   // type URI
-                    true);                                      // required
+                    "http://schema.openid.net/contact/email", 
+                    true);                                  
             
             fetch.addAttribute("firstname",
-                    // attribute alias
-                    "http://axschema.org/namePerson/first",   // type URI
-                    true);                                      // required
+                    "http://axschema.org/namePerson/first",
+                    true);                                    
             
             fetch.addAttribute("lastname",
-                    // attribute alias
-                    "http://axschema.org/namePerson/last",   // type URI
-                    true);                                      // required
+                    "http://axschema.org/namePerson/last",
+                    true);
 
             // attach the extension to the authentication request
             authReq.addExtension(fetch);
@@ -88,30 +90,23 @@ public class GoogleServiceOpenId {
             return new GoogleWrapperModel(redirectionUrl, discovered);
 
         }
-        catch (OpenIDException e)
-        {
+        catch (OpenIDException e) {
             throw new CustomOpenIdAuthException(e);
         }
     }
     
-	// --- processing the authentication response ---
-	public UserModel verifyResponse(ParameterList response, String receivingURL, DiscoveryInformation discovered)
-	{
-		try
-		{
+	public UserModel verifyResponseAndGetData(ParameterList response, String receivingURL, DiscoveryInformation discovered) {
+		try {
 			VerificationResult verification = manager.verify(
 					receivingURL.toString(),
 					response, discovered);
 
 			// examine the verification result and extract the verified identifier
 			Identifier verified = verification.getVerifiedId();
-			if (verified != null)
-			{
-				AuthSuccess authSuccess =
-					(AuthSuccess) verification.getAuthResponse();
+			if (verified != null) {
+				AuthSuccess authSuccess = (AuthSuccess) verification.getAuthResponse();
 
-				if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX))
-				{
+				if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
 					FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
 
 					String email = fetchResp.getAttributeValue("email");
@@ -123,13 +118,10 @@ public class GoogleServiceOpenId {
 					
 					return new UserModel(firstName, lastName, email);
 				}
-
-
 			}
 		}
-		catch (OpenIDException e)
-		{
-			// present error to the user
+		catch (OpenIDException e) {
+			throw new CustomOpenIdAuthException(e);
 		}
 
 		return null;

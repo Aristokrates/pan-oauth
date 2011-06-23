@@ -3,7 +3,9 @@ package org.pan.oauth.model;
 import twitter4j.auth.RequestToken;
 
 /**
- * Wrapper model
+ * Wrapper model for Twitter
+ * <p>
+ * Used when retrieving twitter request token
  * 
  * @author Pance.Isajeski
  *
@@ -14,7 +16,7 @@ public class TwitterWrapperModel {
     private String redirectUrl;
 
     public TwitterWrapperModel(String redirectUrl, RequestToken requestToken) {
-        this.twitterRequestToken = requestToken;
+        twitterRequestToken = requestToken;
         this.redirectUrl = redirectUrl;
     }
 

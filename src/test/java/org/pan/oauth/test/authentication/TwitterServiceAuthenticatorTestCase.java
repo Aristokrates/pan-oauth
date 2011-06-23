@@ -13,6 +13,12 @@ import org.pan.oauth.test.BaseTestCase;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
+/**
+ * Tests twitter authentication process
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public class TwitterServiceAuthenticatorTestCase extends BaseTestCase {
 	
 	private TwitterServiceOAuth twitterServiceAuthenticator;

@@ -10,6 +10,12 @@ import org.pan.oauth.model.UserModel;
 import org.pan.oauth.puller.TwitterServicePuller;
 import org.pan.oauth.test.BaseTestCase;
 
+/**
+ * Test twitter pulling process
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public class TwitterServicePullerTestCase extends BaseTestCase {
 	
 	private TwitterServicePuller twitterServicePuller;

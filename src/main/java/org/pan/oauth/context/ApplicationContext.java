@@ -10,6 +10,14 @@ import org.pan.oauth.authentication.TwitterServiceOAuth;
 import org.pan.oauth.puller.GoogleServicePuller;
 import org.pan.oauth.puller.TwitterServicePuller;
 
+/**
+ * Bean Application context
+ * <p>
+ * Contains and initialize bean singleton instances. Replacement for DI
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public enum ApplicationContext {
 
 	INSTANCE;
@@ -28,29 +36,32 @@ public enum ApplicationContext {
 	}
 
 	private void createGoogleServiceAuthenticator() {
-		this.googleServiceAuthenticator = new GoogleServiceOpenId();		
+		googleServiceAuthenticator = new GoogleServiceOpenId();		
 	}
 
 	private void createGoogleServicePuller() {
-		this.googleServicePuller = new GoogleServicePuller();
+		googleServicePuller = new GoogleServicePuller();
 	}
 
 	private void createTwitterServicePuller() {
 
-		this.twitterServicePuller = new TwitterServicePuller(propertyPlaceholder.getTwitterConsumerKey(), 
+		twitterServicePuller = new TwitterServicePuller(
+				propertyPlaceholder.getTwitterConsumerKey(), 
 				propertyPlaceholder.getTwitterConsumerKeySecret());
 	}
 
 	private void createTwitterServiceAuthenticator() {
 
-		OAuthProvider provider = new DefaultOAuthProvider(propertyPlaceholder.getTwitterRequestTokenUrl(), 
+		OAuthProvider provider = new DefaultOAuthProvider(
+				propertyPlaceholder.getTwitterRequestTokenUrl(), 
 				propertyPlaceholder.getTwitterAccessTokenUrl(), 
 				propertyPlaceholder.getTwitterAuthorizeUrl());
 
-		OAuthConsumer consumer = new DefaultOAuthConsumer(propertyPlaceholder.getTwitterConsumerKey(),
+		OAuthConsumer consumer = new DefaultOAuthConsumer(
+				propertyPlaceholder.getTwitterConsumerKey(),
 				propertyPlaceholder.getTwitterConsumerKeySecret());
 
-		this.twitterServiceAuthenticator = new TwitterServiceOAuth(
+		twitterServiceAuthenticator = new TwitterServiceOAuth(
 				propertyPlaceholder.getTwitterCallbackUrl(), 
 				provider, 
 				consumer);

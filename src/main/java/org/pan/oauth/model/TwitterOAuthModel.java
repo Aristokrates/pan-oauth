@@ -1,7 +1,9 @@
 package org.pan.oauth.model;
 
 /**
- * Twitter model. Holds access token and access token secret
+ * Twitter oauth model. 
+ * <p>
+ * Holds user's access token and access token secret
  * 
  * @author Pance.Isajeski
  *

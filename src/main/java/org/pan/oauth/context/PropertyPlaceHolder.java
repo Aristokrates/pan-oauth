@@ -11,6 +11,8 @@ import java.util.Properties;
 
 /**
  * Property placeholder
+ * <p>
+ * Contains user defined properties injected in application
  * 
  * @author Pance.Isajeski
  *
@@ -33,7 +35,7 @@ public enum PropertyPlaceHolder {
 
 	private PropertyPlaceHolder() {
 		
-		this.properties = new Properties();
+		properties = new Properties();
 		
 		InputStream globalPropertiesIs = PropertyPlaceHolder.class.getResourceAsStream("/global.properties");
 		try {

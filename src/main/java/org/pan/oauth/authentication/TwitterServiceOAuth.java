@@ -1,13 +1,14 @@
 package org.pan.oauth.authentication;
 
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.OAuthProvider;
+import oauth.signpost.exception.OAuthException;
+
 import org.pan.oauth.exception.CustomOAuthException;
 import org.pan.oauth.model.TwitterWrapperModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.exception.OAuthException;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
@@ -69,7 +70,7 @@ public class TwitterServiceOAuth {
 			return new AccessToken(consumer.getToken(), consumer.getTokenSecret());
 
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new CustomOAuthException(e);
 		}
 	}
 

@@ -2,6 +2,12 @@ package org.pan.oauth.model;
 
 import org.openid4java.discovery.DiscoveryInformation;
 
+/**
+ * Google wrapper model used during OpenId authentication.
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public class GoogleWrapperModel {
 	
 	private String redirectionUrl;

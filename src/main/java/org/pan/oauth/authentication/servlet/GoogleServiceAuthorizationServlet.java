@@ -63,7 +63,7 @@ public class GoogleServiceAuthorizationServlet extends HttpServlet {
 			receivingURL.append("?").append(httpReq.getQueryString());
 		}
 		
-		ApplicationContext.INSTANCE.getGoogleServiceAuthenticator().verifyResponse(response, receivingURL.toString(), discovered);		
+		ApplicationContext.INSTANCE.getGoogleServiceAuthenticator().verifyResponseAndGetData(response, receivingURL.toString(), discovered);		
 		
 		System.out.println("***Verification finished***");		
 	}

@@ -1,7 +1,7 @@
 package org.pan.oauth.model;
 
 /**
- * Hold data subject of interest
+ * Holds data pulled from external services
  * 
  * @author Pance.Isajeski
  *
@@ -34,7 +34,7 @@ public class UserModel {
 	}
 
 	public void setUsername(String surname) {
-		this.username = surname;
+		username = surname;
 	}
 
 	public String getEmail() {

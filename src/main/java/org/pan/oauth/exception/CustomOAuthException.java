@@ -1,7 +1,7 @@
 package org.pan.oauth.exception;
 
 /**
- * Custom exception thrown when open authentication service failed
+ * Custom exception thrown when open authentication fails
  * 
  * @author Pance.Isajeski
  *
