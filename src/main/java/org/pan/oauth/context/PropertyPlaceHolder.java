@@ -1,4 +1,4 @@
-package org.pan.oauth.factory;
+package org.pan.oauth.context;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,17 +15,24 @@ import java.util.Properties;
  * @author Pance.Isajeski
  *
  */
-public enum PropertyHolderFactory {
+public enum PropertyPlaceHolder {
 	
 	INSTANCE;
 	
+	private static final String CONSUMER_KEY = "twitter.consumer.key";
+	private static final String CONSUMER_SECRET = "twitter.consumer.secret";
+	private static final String CALLBACK_URL = "twitter.callback.url";
+	private static final String REQUEST_TOKEN_URL = "twitter.requestTokenUrl";
+	private static final String ACCESS_TOKEN_URL = "twitter.accessTokenUrl";
+	private static final String AUTHORIZE_URL = "twitter.authorizeUrl";		
+	
 	private Properties properties;
 
-	private PropertyHolderFactory() {
+	private PropertyPlaceHolder() {
 		
 		this.properties = new Properties();
 		
-		InputStream globalPropertiesIs = PropertyHolderFactory.class.getResourceAsStream("/global.properties");
+		InputStream globalPropertiesIs = PropertyPlaceHolder.class.getResourceAsStream("/global.properties");
 		try {
 			properties.load(globalPropertiesIs);
 		} catch (IOException e) {
@@ -55,7 +62,8 @@ public enum PropertyHolderFactory {
 	private Map<String, String> initHttpProxySettingsMap() {
 		
 		List<String> listOfProperties = Arrays.asList("http.proxyHost", "http.proxyPort", "http.proxyUser", 
-				"http.proxyPassword", "http.nonProxyHosts");
+				"http.proxyPassword", "http.nonProxyHosts", "https.proxyHost", "https.proxyPort", "https.proxyUser", 
+				"https.proxyPassword", "https.nonProxyHosts");
 		
 		Map<String, String> proxySettingsMap = new HashMap<String, String>();
 		
@@ -69,4 +77,29 @@ public enum PropertyHolderFactory {
 	public Properties getProperties() {
 		return properties;
 	}
+	
+	public String getTwitterConsumerKey() {
+		return properties.getProperty(CONSUMER_KEY);
+	}
+	
+	public String getTwitterConsumerKeySecret() {
+		return properties.getProperty(CONSUMER_SECRET);
+	}
+	
+	public String getTwitterCallbackUrl() {
+		return properties.getProperty(CALLBACK_URL);
+	}
+	
+	public String getTwitterRequestTokenUrl() {
+		return properties.getProperty(REQUEST_TOKEN_URL);
+	}
+	
+	public String getTwitterAccessTokenUrl() {
+		return properties.getProperty(ACCESS_TOKEN_URL);
+	}
+	
+	public String getTwitterAuthorizeUrl() {
+		return properties.getProperty(AUTHORIZE_URL);
+	}
+	
 }

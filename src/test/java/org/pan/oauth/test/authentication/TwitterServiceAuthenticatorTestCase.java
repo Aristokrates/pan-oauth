@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.pan.oauth.authentication.TwitterServiceAuthenticator;
-import org.pan.oauth.factory.TwitterServiceAuthenticatorFactory;
+import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.TwitterWrapperModel;
 import org.pan.oauth.test.BaseTestCase;
 
@@ -19,7 +19,7 @@ public class TwitterServiceAuthenticatorTestCase extends BaseTestCase {
 	
 	@Before
 	public void initTest() {
-		twitterServiceAuthenticator = TwitterServiceAuthenticatorFactory.INSTANCE.getTwitterServiceAuthenticator();
+		twitterServiceAuthenticator = ApplicationContext.INSTANCE.getTwitterServiceAuthenticator();
 	}
 	
 	@Test

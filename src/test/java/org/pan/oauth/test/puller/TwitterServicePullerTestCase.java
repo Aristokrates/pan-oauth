@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.pan.oauth.factory.TwitterServicePullerFactory;
+import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.TwitterOAuthModel;
 import org.pan.oauth.model.UserModel;
 import org.pan.oauth.puller.TwitterServicePuller;
@@ -16,7 +16,7 @@ public class TwitterServicePullerTestCase extends BaseTestCase {
 	
 	@Before
 	public void initTest() {
-		twitterServicePuller = TwitterServicePullerFactory.INSTANCE.getTwitterServicePuller();		
+		twitterServicePuller = ApplicationContext.INSTANCE.getTwitterServicePuller();		
 	}
 	
 	@Test

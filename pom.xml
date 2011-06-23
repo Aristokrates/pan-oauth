@@ -50,6 +50,18 @@
 			<version>2.2.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.openid4java</groupId>
+			<artifactId>openid4java-consumer</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 		<!-- Logging -->
 
 		<dependency>
@@ -110,6 +122,18 @@
 			</snapshots>
 		</repository>
 
-	</repositories>
+		<repository>
+			<id>openid4java repository</id>
+			<name>openid4java repository</name>
+			<url>https://hypobytes.com/maven/content/groups/public/</url>
+			<snapshots />
+		</repository>
 
+		<repository>
+			<id>step2</id>
+			<name>Step 2 Maven Repository</name>
+			<url>http://step2.googlecode.com/svn/code/java/maven</url>
+		</repository>
+
+	</repositories>
 </project>

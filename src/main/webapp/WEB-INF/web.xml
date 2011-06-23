@@ -7,4 +7,26 @@
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/log4j.properties</param-value>
 	</context-param>
+
+	<servlet>
+		<servlet-name>GoogleServiceAuthenticatorServlet</servlet-name>
+		<servlet-class>org.pan.oauth.authentication.GoogleServiceAuthenticatorServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GoogleServiceAuthorizationServlet</servlet-name>
+		<servlet-class>org.pan.oauth.authentication.GoogleServiceAuthorizationServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GoogleServiceAuthenticatorServlet</servlet-name>
+		<url-pattern>/openid</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GoogleServiceAuthorizationServlet</servlet-name>
+		<url-pattern>/redirect</url-pattern>
+	</servlet-mapping>
 </web-app>
