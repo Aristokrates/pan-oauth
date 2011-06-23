@@ -10,23 +10,23 @@
 
 	<servlet>
 		<servlet-name>GoogleServiceAuthenticatorServlet</servlet-name>
-		<servlet-class>org.pan.oauth.authentication.GoogleServiceAuthenticatorServlet</servlet-class>
+		<servlet-class>org.pan.oauth.authentication.servlet.GoogleServiceAuthenticatorServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet>
 		<servlet-name>GoogleServiceAuthorizationServlet</servlet-name>
-		<servlet-class>org.pan.oauth.authentication.GoogleServiceAuthorizationServlet</servlet-class>
+		<servlet-class>org.pan.oauth.authentication.servlet.GoogleServiceAuthorizationServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>GoogleServiceAuthenticatorServlet</servlet-name>
-		<url-pattern>/openid</url-pattern>
+		<url-pattern>/openid/request</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>GoogleServiceAuthorizationServlet</servlet-name>
-		<url-pattern>/redirect</url-pattern>
+		<url-pattern>/openid/callback</url-pattern>
 	</servlet-mapping>
 </web-app>

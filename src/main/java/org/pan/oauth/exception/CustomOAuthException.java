@@ -17,7 +17,5 @@ public class CustomOAuthException extends RuntimeException {
 	public CustomOAuthException(Throwable cause) {
 		super(cause);
 	}
-	
-	
 
 }

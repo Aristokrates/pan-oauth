@@ -17,6 +17,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Pulling data from twitter service
+ * <p>
+ * 	Uses oauth
  * 
  * @author Pance.Isajeski
  *

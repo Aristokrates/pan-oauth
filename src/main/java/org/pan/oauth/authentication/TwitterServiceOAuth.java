@@ -18,9 +18,9 @@ import twitter4j.auth.RequestToken;
  *
  */
 //TODO (pai) investigate & consider non-singleton usage
-public class TwitterServiceAuthenticator {
+public class TwitterServiceOAuth {
 
-	private static final Logger log = LoggerFactory.getLogger(TwitterServiceAuthenticator.class);
+	private static final Logger log = LoggerFactory.getLogger(TwitterServiceOAuth.class);
 
 	private String twitterCallbackUrl;
 
@@ -28,7 +28,7 @@ public class TwitterServiceAuthenticator {
 
 	private OAuthConsumer consumer;
 
-	public TwitterServiceAuthenticator(String twitterCallbackUrl, 
+	public TwitterServiceOAuth(String twitterCallbackUrl, 
 			OAuthProvider provider, OAuthConsumer consumer) {
 		
 		super();

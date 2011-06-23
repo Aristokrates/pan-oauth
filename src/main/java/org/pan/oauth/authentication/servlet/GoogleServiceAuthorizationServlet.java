@@ -8,16 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.openid4java.OpenIDException;
-import org.openid4java.consumer.ConsumerException;
-import org.openid4java.consumer.ConsumerManager;
-import org.openid4java.consumer.VerificationResult;
 import org.openid4java.discovery.DiscoveryInformation;
-import org.openid4java.discovery.Identifier;
-import org.openid4java.message.AuthSuccess;
 import org.openid4java.message.ParameterList;
-import org.openid4java.message.ax.AxMessage;
-import org.openid4java.message.ax.FetchResponse;
+import org.pan.oauth.context.ApplicationContext;
 
 /**
  * Google service for authentication using Federated login
@@ -27,24 +20,17 @@ import org.openid4java.message.ax.FetchResponse;
  */
 public class GoogleServiceAuthorizationServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -4512284617488524622L;
-	public ConsumerManager manager;
+	private static final long serialVersionUID = -5512546635220093556L;	
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		try {
-			manager = new ConsumerManager();
-		} catch (ConsumerException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		doPost(req, resp);
-
 	}
 
 	/**
@@ -57,65 +43,28 @@ public class GoogleServiceAuthorizationServlet extends HttpServlet {
 	 */
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		verifyResponse(req);
+		processResponse(req);
 	}
 
 	// --- processing the authentication response ---
-	public Identifier verifyResponse(HttpServletRequest httpReq)
-	{
-		try
-		{
-			// extract the parameters from the authentication response
-			// (which comes in as a HTTP request from the OpenID provider)
-			ParameterList response =
-				new ParameterList(httpReq.getParameterMap());
+	public void processResponse(HttpServletRequest httpReq) {
+		// extract the parameters from the authentication response
+		// (which comes in as a HTTP request from the OpenID provider)
+		ParameterList response = new ParameterList(httpReq.getParameterMap());
 
-			// retrieve the previously stored discovery information
-			DiscoveryInformation discovered = (DiscoveryInformation)
-			httpReq.getSession().getAttribute("openid-disc");
+		// retrieve the previously stored discovery information
+		DiscoveryInformation discovered = (DiscoveryInformation)httpReq.getSession().getAttribute("openid-disc");
 
-			// extract the receiving URL from the HTTP request
-			StringBuffer receivingURL = httpReq.getRequestURL();
-			String queryString = httpReq.getQueryString();
-			if (queryString != null && queryString.length() > 0)
-				receivingURL.append("?").append(httpReq.getQueryString());
+		// extract the receiving URL from the HTTP request
+		StringBuffer receivingURL = httpReq.getRequestURL();
+		String queryString = httpReq.getQueryString();
 
-			// verify the response; ConsumerManager needs to be the same
-			// (static) instance used to place the authentication request
-			VerificationResult verification = manager.verify(
-					receivingURL.toString(),
-					response, discovered);
-
-			// examine the verification result and extract the verified identifier
-			Identifier verified = verification.getVerifiedId();
-			if (verified != null)
-			{
-				AuthSuccess authSuccess =
-					(AuthSuccess) verification.getAuthResponse();
-
-				if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX))
-				{
-					FetchResponse fetchResp = (FetchResponse) authSuccess
-					.getExtension(AxMessage.OPENID_NS_AX);
-
-					String email = fetchResp.getAttributeValue("email");
-					System.out.println("***Email received: " + email);
-					String firstName = fetchResp.getAttributeValue("firstname");
-					System.out.println("***First name received: " + firstName);
-					String lastName = fetchResp.getAttributeValue("lastname");
-					System.out.println("***Last name received: " + lastName);
-				}
-
-				return verified;  // success
-			}
+		if (queryString != null && queryString.length() > 0) {
+			receivingURL.append("?").append(httpReq.getQueryString());
 		}
-		catch (OpenIDException e)
-		{
-			// present error to the user
-		}
-
-		System.out.println("***Verification finished***");
-		return null;
+		
+		ApplicationContext.INSTANCE.getGoogleServiceAuthenticator().verifyResponse(response, receivingURL.toString(), discovered);		
+		
+		System.out.println("***Verification finished***");		
 	}
-
 }

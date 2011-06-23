@@ -10,12 +10,18 @@
 
 	<properties>
 		<java.version>1.5</java.version>
+		<junit.version>4.8.2</junit.version>
+		
 		<struts.version>1.2.7</struts.version>
+		<servlet.version>2.5</servlet.version>
 
 		<slf4j.version>1.5.2</slf4j.version>
 		<log4j.version>1.2.15</log4j.version>
+		
+		<signpost.version>1.2.1</signpost.version>
+		<twitter4j.version>2.2.3</twitter4j.version>
+		<openid4j.version>0.9.5</openid4j.version>
 
-		<junit.version>4.8.2</junit.version>
 	</properties>
 
 	<build>
@@ -33,13 +39,19 @@
 
 	<dependencies>
 
-		<!-- Struts -->
+		<!-- Web -->		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- Third party service integration -->
 		<dependency>
 			<groupId>oauth.signpost</groupId>
 			<artifactId>signpost-core</artifactId>
-			<version>1.2.1</version>
+			<version>${signpost.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -47,23 +59,16 @@
 		<dependency>
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
-			<version>2.2.3</version>
+			<version>${twitter4j.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openid4java</groupId>
 			<artifactId>openid4java-consumer</artifactId>
-			<version>0.9.5</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<version>${openid4j.version}</version>
 		</dependency>
 
 		<!-- Logging -->
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -100,7 +105,6 @@
 		</dependency>
 
 		<!-- Testing -->
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -127,12 +131,6 @@
 			<name>openid4java repository</name>
 			<url>https://hypobytes.com/maven/content/groups/public/</url>
 			<snapshots />
-		</repository>
-
-		<repository>
-			<id>step2</id>
-			<name>Step 2 Maven Repository</name>
-			<url>http://step2.googlecode.com/svn/code/java/maven</url>
 		</repository>
 
 	</repositories>

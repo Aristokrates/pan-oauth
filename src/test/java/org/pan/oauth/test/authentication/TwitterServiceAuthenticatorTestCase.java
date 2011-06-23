@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.pan.oauth.authentication.TwitterServiceAuthenticator;
+import org.pan.oauth.authentication.TwitterServiceOAuth;
 import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.TwitterWrapperModel;
 import org.pan.oauth.test.BaseTestCase;
@@ -15,7 +15,7 @@ import twitter4j.auth.RequestToken;
 
 public class TwitterServiceAuthenticatorTestCase extends BaseTestCase {
 	
-	private TwitterServiceAuthenticator twitterServiceAuthenticator;
+	private TwitterServiceOAuth twitterServiceAuthenticator;
 	
 	@Before
 	public void initTest() {

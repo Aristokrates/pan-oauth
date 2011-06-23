@@ -26,6 +26,9 @@ public enum PropertyPlaceHolder {
 	private static final String ACCESS_TOKEN_URL = "twitter.accessTokenUrl";
 	private static final String AUTHORIZE_URL = "twitter.authorizeUrl";		
 	
+	private static final String OPEN_ID_ENDPOINT = "openid.endpoint";
+	private static final String OPEN_ID_CALLBACK_URL = "openid.callback.url";
+	
 	private Properties properties;
 
 	private PropertyPlaceHolder() {
@@ -100,6 +103,14 @@ public enum PropertyPlaceHolder {
 	
 	public String getTwitterAuthorizeUrl() {
 		return properties.getProperty(AUTHORIZE_URL);
+	}
+	
+	public String getOpenIdEndpoint() {
+		return properties.getProperty(OPEN_ID_ENDPOINT);
+	}
+	
+	public String getOpenIdCallbackUrl() {
+		return properties.getProperty(OPEN_ID_CALLBACK_URL);
 	}
 	
 }

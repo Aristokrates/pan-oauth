@@ -8,7 +8,7 @@ package org.pan.oauth.puller;
  * @author Pance.Isajeski
  *
  */
-//TODO (pai) to be implemented if ever needed (requires oauth)
+//TODO (pai) to be implemented if ever needed
 public class GoogleServicePuller {
 
 	public GoogleServicePuller() {
