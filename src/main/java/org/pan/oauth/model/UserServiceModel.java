@@ -1,20 +1,16 @@
 package org.pan.oauth.model;
 
-/**
- * Holds data pulled from external services
- * 
- * @author Pance.Isajeski
- *
- */
-public class UserModel {
-	
+public class UserServiceModel {
+
+	private static final long serialVersionUID = 2470355682032905527L;
+
 	private String name;
-	
+
 	private String username;
-	
+
 	private String email;
 
-	public UserModel(String name, String username, String email) {
+	public UserServiceModel(String name, String username, String email) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -44,4 +40,5 @@ public class UserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }

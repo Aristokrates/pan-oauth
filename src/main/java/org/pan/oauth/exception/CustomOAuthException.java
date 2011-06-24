@@ -13,6 +13,11 @@ public class CustomOAuthException extends RuntimeException {
 	public CustomOAuthException() {
 		super();
 	}
+	
+	public CustomOAuthException(String message) {
+		super("Error occured: [" + message + "]");
+	}
+	
 
 	public CustomOAuthException(Throwable cause) {
 		super(cause);

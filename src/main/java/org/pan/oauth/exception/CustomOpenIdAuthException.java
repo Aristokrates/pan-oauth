@@ -13,6 +13,10 @@ public class CustomOpenIdAuthException extends RuntimeException {
 	public CustomOpenIdAuthException() {
 		super();
 	}
+	
+	public CustomOpenIdAuthException(String message) {
+		super("Error occured: [" + message + "]");
+	}
 
 	public CustomOpenIdAuthException(Throwable cause) {
 		super(cause);

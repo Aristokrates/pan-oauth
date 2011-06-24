@@ -20,7 +20,7 @@ import org.openid4java.message.ax.FetchResponse;
 import org.pan.oauth.context.PropertyPlaceHolder;
 import org.pan.oauth.exception.CustomOpenIdAuthException;
 import org.pan.oauth.model.GoogleWrapperModel;
-import org.pan.oauth.model.UserModel;
+import org.pan.oauth.model.UserServiceModel;
 
 /**
  * Google service authentication using OpenId protocol
@@ -28,11 +28,11 @@ import org.pan.oauth.model.UserModel;
  * @author Pance.Isajeski
  *
  */
-public class GoogleServiceOpenId {
+public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
 	
 	private ConsumerManager manager;
 		
-	public GoogleServiceOpenId() {
+	public GoogleServiceOpenIdAuthenticator() {
 		
 		super();
 		
@@ -44,7 +44,7 @@ public class GoogleServiceOpenId {
 	}
 
     @SuppressWarnings("unchecked")
-	public GoogleWrapperModel authRequest() throws IOException, ServletException {
+	public GoogleWrapperModel authRequest(String baseUrl) throws IOException, ServletException {
         try {       
             // --- Forward proxy setup (only if needed) ---
 //             ProxyProperties proxyProps = new ProxyProperties();
@@ -63,8 +63,8 @@ public class GoogleServiceOpenId {
             DiscoveryInformation discovered = manager.associate(discoveries);
 
             // obtain a AuthRequest message to be sent to the OpenID provider
-            AuthRequest authReq = manager.authenticate(
-            		discovered, PropertyPlaceHolder.INSTANCE.getOpenIdCallbackUrl());
+            String callbackUrl = new StringBuffer(baseUrl).append(PropertyPlaceHolder.INSTANCE.getOpenIdCallbackUrl()).toString();
+            AuthRequest authReq = manager.authenticate(discovered, callbackUrl);
 
             // Attribute Exchange
             FetchRequest fetch = FetchRequest.createFetchRequest();
@@ -95,7 +95,7 @@ public class GoogleServiceOpenId {
         }
     }
     
-	public UserModel verifyResponseAndGetData(ParameterList response, String receivingURL, DiscoveryInformation discovered) {
+	public UserServiceModel verifyResponseAndGetData(ParameterList response, String receivingURL, DiscoveryInformation discovered) {
 		try {
 			VerificationResult verification = manager.verify(
 					receivingURL.toString(),
@@ -116,7 +116,7 @@ public class GoogleServiceOpenId {
 					String lastName = fetchResp.getAttributeValue("lastname");
 					System.out.println("***Last name received: " + lastName);
 					
-					return new UserModel(firstName, lastName, email);
+					return new UserServiceModel(firstName, lastName, email);
 				}
 			}
 		}

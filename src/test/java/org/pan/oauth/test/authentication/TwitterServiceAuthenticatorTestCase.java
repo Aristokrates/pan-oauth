@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.pan.oauth.authentication.TwitterServiceOAuth;
+import org.pan.oauth.authentication.TwitterServiceAuthenticator;
 import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.TwitterWrapperModel;
 import org.pan.oauth.test.BaseTestCase;
@@ -21,7 +21,7 @@ import twitter4j.auth.RequestToken;
  */
 public class TwitterServiceAuthenticatorTestCase extends BaseTestCase {
 	
-	private TwitterServiceOAuth twitterServiceAuthenticator;
+	private TwitterServiceAuthenticator twitterServiceAuthenticator;
 	
 	@Before
 	public void initTest() {
@@ -30,7 +30,7 @@ public class TwitterServiceAuthenticatorTestCase extends BaseTestCase {
 	
 	@Test
 	public void testRequestToken() {
-		TwitterWrapperModel twitterWrapper = twitterServiceAuthenticator.getTwitterURL();
+		TwitterWrapperModel twitterWrapper = twitterServiceAuthenticator.getTwitterURL("http://localhost:8080/oauth");
 		System.out.println("Get oauth_verifier from Url: " + twitterWrapper.getRedirectUrl());
 		
 		RequestToken requestToken = twitterWrapper.getTwitterRequestToken();

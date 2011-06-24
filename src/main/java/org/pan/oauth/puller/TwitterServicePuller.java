@@ -2,7 +2,7 @@ package org.pan.oauth.puller;
 
 import org.pan.oauth.exception.CustomOAuthException;
 import org.pan.oauth.model.TwitterOAuthModel;
-import org.pan.oauth.model.UserModel;
+import org.pan.oauth.model.UserServiceModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,7 @@ public class TwitterServicePuller {
 		this.consumerSecret = consumerSecret;
 	}
 	
-	public UserModel verifyCredentials(TwitterOAuthModel twitterModel) {
+	public UserServiceModel verifyCredentials(TwitterOAuthModel twitterModel) {
 		
 		User user = null;
 
@@ -50,7 +50,7 @@ public class TwitterServicePuller {
 		}
 
 		//(pai) FIXME Twitter does not allow email to be retrieved
-		return new UserModel(user.getName(), user.getScreenName(), null);
+		return new UserServiceModel(user.getName(), user.getScreenName(), null);
 	}
 	
 	private Twitter getClient(final String accessToken, final String accessTokenSecret) {

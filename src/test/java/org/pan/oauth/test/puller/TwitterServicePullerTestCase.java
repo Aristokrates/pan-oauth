@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.TwitterOAuthModel;
-import org.pan.oauth.model.UserModel;
+import org.pan.oauth.model.UserServiceModel;
 import org.pan.oauth.puller.TwitterServicePuller;
 import org.pan.oauth.test.BaseTestCase;
 
@@ -33,7 +33,7 @@ public class TwitterServicePullerTestCase extends BaseTestCase {
 		
 		TwitterOAuthModel twitterModel = new TwitterOAuthModel(accessToken, accessTokenSecret);
 		
-		UserModel user = twitterServicePuller.verifyCredentials(twitterModel);
+		UserServiceModel user = twitterServicePuller.verifyCredentials(twitterModel);
 		Assert.assertNotNull(user);
 		System.out.println("Name: " + user.getName());
 		System.out.println("Username: " + user.getUsername());

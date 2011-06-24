@@ -5,8 +5,8 @@ import oauth.signpost.OAuthProvider;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthProvider;
 
-import org.pan.oauth.authentication.GoogleServiceOpenId;
-import org.pan.oauth.authentication.TwitterServiceOAuth;
+import org.pan.oauth.authentication.GoogleServiceOpenIdAuthenticator;
+import org.pan.oauth.authentication.TwitterServiceAuthenticator;
 import org.pan.oauth.puller.GoogleServicePuller;
 import org.pan.oauth.puller.TwitterServicePuller;
 
@@ -23,8 +23,8 @@ public enum ApplicationContext {
 	INSTANCE;
 
 	private GoogleServicePuller googleServicePuller;
-	private GoogleServiceOpenId googleServiceAuthenticator;
-	private TwitterServiceOAuth twitterServiceAuthenticator;
+	private GoogleServiceOpenIdAuthenticator googleServiceAuthenticator;
+	private TwitterServiceAuthenticator twitterServiceAuthenticator;
 	private TwitterServicePuller twitterServicePuller;
 	private PropertyPlaceHolder propertyPlaceholder = PropertyPlaceHolder.INSTANCE;
 
@@ -36,7 +36,7 @@ public enum ApplicationContext {
 	}
 
 	private void createGoogleServiceAuthenticator() {
-		googleServiceAuthenticator = new GoogleServiceOpenId();		
+		googleServiceAuthenticator = new GoogleServiceOpenIdAuthenticator();		
 	}
 
 	private void createGoogleServicePuller() {
@@ -61,21 +61,18 @@ public enum ApplicationContext {
 				propertyPlaceholder.getTwitterConsumerKey(),
 				propertyPlaceholder.getTwitterConsumerKeySecret());
 
-		twitterServiceAuthenticator = new TwitterServiceOAuth(
-				propertyPlaceholder.getTwitterCallbackUrl(), 
-				provider, 
-				consumer);
+		twitterServiceAuthenticator = new TwitterServiceAuthenticator(provider, consumer);
 	}
 
 	public GoogleServicePuller getGoogleServicePuller() {
 		return googleServicePuller;
 	}
 
-	public GoogleServiceOpenId getGoogleServiceAuthenticator() {
+	public GoogleServiceOpenIdAuthenticator getGoogleServiceAuthenticator() {
 		return googleServiceAuthenticator;
 	}
 
-	public TwitterServiceOAuth getTwitterServiceAuthenticator() {
+	public TwitterServiceAuthenticator getTwitterServiceAuthenticator() {
 		return twitterServiceAuthenticator;
 	}
 
