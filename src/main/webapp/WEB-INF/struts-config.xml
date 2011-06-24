@@ -7,12 +7,12 @@
 	</form-beans>
 
 	<action-mappings>
-		<action path="/callbackTwitter" type="org.pan.oauth.struts.GoogleCallbackAction"
+		<action path="/callback_openid" type="org.pan.oauth.struts.GoogleCallbackAction"
 			name="infoDisplayFormModel" scope="request">
 			<forward name="success" path="/infoDisplay.jsp"></forward>
 		</action>
 
-		<action path="/callbackOpenid" type="org.pan.oauth.struts.TwitterCallbackAction"
+		<action path="/callback_twitter" type="org.pan.oauth.struts.TwitterCallbackAction"
 			name="infoDisplayFormModel" scope="request">
 			<forward name="success" path="/infoDisplay.jsp"></forward>
 		</action>
