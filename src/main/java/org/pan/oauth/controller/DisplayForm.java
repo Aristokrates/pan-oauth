@@ -1,14 +1,14 @@
-package org.pan.oauth.struts;
+package org.pan.oauth.controller;
 
 import org.apache.struts.action.ActionForm;
 
 /**
- * Holds data pulled from external services
+ * Holds data displayed on screen as ActionForm
  * 
  * @author Pance.Isajeski
  *
  */
-public class InfoDisplayModel extends ActionForm {
+public class DisplayForm extends ActionForm {
 	
 	private static final long serialVersionUID = 2470355682032905527L;
 
@@ -18,11 +18,11 @@ public class InfoDisplayModel extends ActionForm {
 	
 	private String email;
 
-	public InfoDisplayModel() {
+	public DisplayForm() {
 		super();
 	}
 
-	public InfoDisplayModel(String name, String username, String email) {
+	public DisplayForm(String name, String username, String email) {
 		super();
 		this.name = name;
 		this.username = username;

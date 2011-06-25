@@ -3,23 +3,26 @@
 <struts-config>
 
 	<form-beans>
-		<form-bean name="infoDisplayFormModel" type="org.pan.oauth.struts.InfoDisplayModel" />
+		<form-bean name="infoDisplayFormModel" type="org.pan.oauth.controller.DisplayForm" />
 	</form-beans>
 
+	<global-forwards>
+		<forward name="index" path="/index.jsp" />
+	</global-forwards>
+
 	<action-mappings>
-		<action path="/callback_openid" type="org.pan.oauth.struts.GoogleCallbackAction"
+		<action path="/callback_openid" type="org.pan.oauth.controller.GoogleCallbackAction"
 			name="infoDisplayFormModel" scope="request">
-			<forward name="success" path="/infoDisplay.jsp"></forward>
+			<forward name="success" path="/googleInfoDisplay.jsp"></forward>
 		</action>
 
-		<action path="/callback_twitter" type="org.pan.oauth.struts.TwitterCallbackAction"
+		<action path="/callback_twitter" type="org.pan.oauth.controller.TwitterCallbackAction"
 			name="infoDisplayFormModel" scope="request">
-			<forward name="success" path="/infoDisplay.jsp"></forward>
+			<forward name="success" path="/twitterInfoDisplay.jsp"></forward>
 		</action>
 
 		<action input="/index.jsp" parameter="method" path="/UserAction"
-			scope="session" type="org.pan.oauth.struts.UserAction" name="infoDisplayFormModel">
-			<forward name="success" path="/index.jsp" />
+			scope="session" type="org.pan.oauth.controller.UserAction" name="infoDisplayFormModel">
 		</action>
 	</action-mappings>
 </struts-config>

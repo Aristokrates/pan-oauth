@@ -1,4 +1,4 @@
-package org.pan.oauth.struts;
+package org.pan.oauth.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,12 @@ import org.pan.oauth.context.ApplicationContext;
 import org.pan.oauth.model.GoogleWrapperModel;
 import org.pan.oauth.model.TwitterWrapperModel;
 
+/**
+ * Handling user actions on home screen
+ * 
+ * @author Aristokrates
+ *
+ */
 public class UserAction extends DispatchAction  {
 	 
     public ActionForward doTwitterAuth(ActionMapping mapping, ActionForm form,

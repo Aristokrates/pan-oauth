@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Returned information</title>
+<title>Returned information from Twitter</title>
 </head>
 <body>
 
@@ -12,16 +12,13 @@
 		<td><bean:write name="infoDisplayFormModel" property="name" /></td>
 	</tr>
 	<tr>
-		<td>Last name/Username</td>
+		<td>Username</td>
 		<td><bean:write name="infoDisplayFormModel" property="username"/></td>
 	</tr>
 	<tr>
-		<td>Email</td>
-		<td><bean:write name="infoDisplayFormModel" property="email" /></td>
+		<td>Twitter API does not expose user's email address</td>
 	</tr>
 </table>
-
 	<INPUT type="button" value="To Home Page" onClick="location.href='/oauth/index.jsp'">
-
 </body>
 </html>

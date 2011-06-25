@@ -33,7 +33,7 @@ public class TwitterServicePullerTestCase extends BaseTestCase {
 		
 		TwitterOAuthModel twitterModel = new TwitterOAuthModel(accessToken, accessTokenSecret);
 		
-		UserServiceModel user = twitterServicePuller.verifyCredentials(twitterModel);
+		UserServiceModel user = twitterServicePuller.verifyCredentialsAndGetData(twitterModel);
 		Assert.assertNotNull(user);
 		System.out.println("Name: " + user.getName());
 		System.out.println("Username: " + user.getUsername());

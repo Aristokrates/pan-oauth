@@ -37,7 +37,7 @@ public class TwitterServicePuller {
 		this.consumerSecret = consumerSecret;
 	}
 	
-	public UserServiceModel verifyCredentials(TwitterOAuthModel twitterModel) {
+	public UserServiceModel verifyCredentialsAndGetData(TwitterOAuthModel twitterModel) {
 		
 		User user = null;
 
@@ -50,6 +50,7 @@ public class TwitterServicePuller {
 		}
 
 		//(pai) FIXME Twitter does not allow email to be retrieved
+		log.warn("Twitter data is successfully fetched");
 		return new UserServiceModel(user.getName(), user.getScreenName(), null);
 	}
 	

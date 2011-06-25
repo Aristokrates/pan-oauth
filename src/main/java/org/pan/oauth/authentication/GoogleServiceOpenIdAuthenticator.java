@@ -21,6 +21,8 @@ import org.pan.oauth.context.PropertyPlaceHolder;
 import org.pan.oauth.exception.CustomOpenIdAuthException;
 import org.pan.oauth.model.GoogleWrapperModel;
 import org.pan.oauth.model.UserServiceModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Google service authentication using OpenId protocol
@@ -29,6 +31,8 @@ import org.pan.oauth.model.UserServiceModel;
  *
  */
 public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
+	
+	private static final Logger log = LoggerFactory.getLogger(GoogleServiceOpenIdAuthenticator.class);
 	
 	private ConsumerManager manager;
 		
@@ -53,6 +57,9 @@ public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
 //             proxyProps.setUserName("SEAVUS-CORP\\Pance.Isajeski");
 //             proxyProps.setPassword("$1birokrates");
 //             HttpClientFactory.setProxyProperties(proxyProps);
+        	
+            
+            log.debug("First step OpenId >>> Discoveing endpoint open id providers");
 
             // perform discovery on the user-supplied identifier
             List<DiscoveryInformation> discoveries = manager.discover(
@@ -65,6 +72,8 @@ public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
             // obtain a AuthRequest message to be sent to the OpenID provider
             String callbackUrl = new StringBuffer(baseUrl).append(PropertyPlaceHolder.INSTANCE.getOpenIdCallbackUrl()).toString();
             AuthRequest authReq = manager.authenticate(discovered, callbackUrl);
+            
+            log.debug("Second step OpenId >>> Request information from the provider");
 
             // Attribute Exchange
             FetchRequest fetch = FetchRequest.createFetchRequest();
@@ -85,7 +94,7 @@ public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
             
             String redirectionUrl = authReq.getDestinationUrl(true);
             
-            System.out.println("Redirection Url: " + redirectionUrl);           
+            log.debug("Third step OpenId >>> Performing authentication on url + [" + redirectionUrl + "]");
             
             return new GoogleWrapperModel(redirectionUrl, discovered);
 
@@ -110,12 +119,9 @@ public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
 					FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
 
 					String email = fetchResp.getAttributeValue("email");
-					System.out.println("***Email received: " + email);
 					String firstName = fetchResp.getAttributeValue("firstname");
-					System.out.println("***First name received: " + firstName);
-					String lastName = fetchResp.getAttributeValue("lastname");
-					System.out.println("***Last name received: " + lastName);
-					
+					String lastName = fetchResp.getAttributeValue("lastname");					
+					log.warn("Google data is successfully fetched");
 					return new UserServiceModel(firstName, lastName, email);
 				}
 			}
@@ -124,6 +130,8 @@ public class GoogleServiceOpenIdAuthenticator extends BaseAutheticator {
 			throw new CustomOpenIdAuthException(e);
 		}
 
+		log.warn("No google openId verifier found... User has cancel the request");
+		//varification failed or user has canceled the request
 		return null;
 	}
 }

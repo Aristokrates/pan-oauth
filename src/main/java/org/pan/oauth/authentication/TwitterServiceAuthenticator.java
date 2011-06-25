@@ -47,6 +47,7 @@ public class TwitterServiceAuthenticator extends BaseAutheticator {
 		try {
 			String callbackUrl = new StringBuffer(baseUrl).append(
 					PropertyPlaceHolder.INSTANCE.getTwitterCallbackUrl()).toString();
+			log.debug("Retreiving twitter request token");
 			String url = provider.retrieveRequestToken(consumer, callbackUrl);
 			
 			return new TwitterWrapperModel(url, buildRequestToken());
@@ -66,6 +67,7 @@ public class TwitterServiceAuthenticator extends BaseAutheticator {
 
 		consumer.setTokenWithSecret(token.getToken(), token.getTokenSecret());
 		try {
+			log.debug("Retreiving twitter access token for request token: [" + token + "]");
 			provider.retrieveAccessToken(consumer, oauthVerifier);
 			return new AccessToken(consumer.getToken(), consumer.getTokenSecret());
 

@@ -1,5 +1,11 @@
 package org.pan.oauth.model;
 
+/**
+ * Holds data subject of interes  
+ * 
+ * @author Pance.Isajeski
+ *
+ */
 public class UserServiceModel {
 
 	private static final long serialVersionUID = 2470355682032905527L;
